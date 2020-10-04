@@ -1,0 +1,286 @@
+==>PERTEMUAN PERTAMA
+Laravel membuat sendiri local server untuk running ( php artisan server )
+kalo untuk CLOSING serve bisa menggunakan CTRL + C atau command C
+ketik php artisan saja jika lupa command untuk menjalan kan artisan
+ 
+semua dasar sistem laravel terdapat di routes
+di routes tersebut terdapat beberapa kata untuk menjalankannya atau method
+requestnya seperti GET,POST,PUT,DELETE etc
+
+dari routes memanggil view yang berada pada folder resources/views nama blade
+pada views atau extendtion blade adalah sebuah extendtion yang nanti membantu
+untuk menjalakan kan fungsi-fungsi bada badian viewsnya
+
+
+===>PERTEMUAN KE 2
+membuat controller di laravel bisa membuat sebuah controller menggunakan 
+command : php artisan make:controller ArticleController (nama controllernya
+adalah article dengan akhiran wajib sebagai penanda yaitu controller)
+
+php artisan help make:controller untuk membantu membuat controller
+
+controller invokable adalah controller dengan singel method sehingga methodnya
+tidak usah di tulis route
+
+===>PERTEMUAN KE 3
+membuat routes yang lebih komplex dimana setelah nama routes bisa diisi dengan
+sebuah value dengan tanda {} dan isinya bisa any,num,slug {slug} dll, slug adalah
+sebuah judul yang ramah url dapat digunakan sebagai pengganti id
+
+===>PERTEMUAN KE 4 
+pasing variabel ke controller dengan cara menambah any pada routes dan tangkap
+pada parameter controller, lebih simple jika menggunakan compact
+
+===>PERTEMUAN KE 5
+extend Layout blade
+1. buat layouts lalu pada body slipkan @yeild('nama content')
+2. pada view yang di tuju extends('alamat layout yang dipakai')
+3. pada view masukan nama section yang sesai dengan content layout
+misalnya @section('nama content') lalu akhiri dengan @endsection
+
+===>PERTEMUAN KE 6
+management halaman pada satu folder jika memanggil view nya jika ada di dalam 1file
+hanya perlu menambahkah titik/dot return views('aticle.singel') misalnya
+
+===>PERTEMUAN KE 7
+LOOPING data yang sudah diambil oleh controller data arrya assosiave bisa dipanggil
+menggunakan compact contoh compact('dataArticle')
+
+lalu pada view nya hanya perlu di looping saja menggunakan syntax blade agar lebih simple
+tapi karena datanya array assosiave maka jika langsung ditampilkan akan error sehingga
+harus dikluarkan dulu dari arraynya menggunakan foreach dnegan syntax blade lebih simple
+
+===>PERTEMUAN KE 8
+penggunaan file .env untuk pengaturan database menggnatikan pengaturan yang ada di config
+jadi agar lebih simple ganti config databasenya di .env saja jika ada yang telah di ubah
+pada folde .env sebaiknya merestart lagi php development servenya atau php artisan serve
+
+===>PERTEMUAN KE 10
+menggunakan aplikasi mockaroo.com untuk membuat database bayangan
+
+===>PERTEMUAN KE 11
+membuat model menggunakan command : php artisan make:model namamodel
+normalnya model ini mewakili nama yang ada di databasenya misal nama databasenya adalah
+articles dengak akhiran S karena jamak, jadi setiap table akan memiliki satu model pada
+umunya jika nama table adalah jamak misal Articles maka pada model akan menjadi singular
+menjadi Article
+
+===>PERTEMUAN KE 12
+jika nama table tidak konvensional atau maka akan error, cara nya mudah hanya perlu
+menuliskan protected $table = 'nama table yang tidak konvensional';
+contoh protected = 'my_articles'; (my_articles disini adalah nama table)
+
+===>PERTEMUAN KE 13 
+pada laravel sudah ada fitur pagiantion dimana pagination ini sudah terintegrasi dengan
+sytlenya bootstrap, cara pakainya dari controller pada saat panggil model dengan ::paginate(5)
+dengan parameter jumlah data yang ingin ditampilkan 
+
+lalu pada content atau viewnya hanya perlu menuliskan {{$namaVar->links()}} jika sudah ada 
+CDN atau framewok bootstrap maka ini akan langsung rapih
+
+===>PERTEMUAN KE 14
+MEMBUAT FORM dengan csrf
+
+===>PERTEMUAN KE 15
+meski routes sama tapi method bebeda maka tidak apa2 jika di laravel laravel akan memberitahu
+jika sebuah form tidak menggunakan sebuah validasi csrf dimana satu form itu hanya boleh
+ditambah lewat form itu saja, pada tutorial ini menggunakan nama fungsi yang konvensional dengan
+fungsi2 laravel jadi jika nama  fungsi mau diubah oleh fungsi lain maka tidak masalah, ini 
+hanya membiasakan saja
+
+===>PERTEMUAN KE 16
+laravel sudah meng asumsikan sebuah table memiliki created_at dan updataed_ad jadi akan error jika
+tablenya tidak meiliki 2 field tersebut, untuk mengatasinya bisa menggunakan 
+
+
+===>PERTEMUAN KE 17 
+form validation lihat dari dokumen validationnya caranya cukup mudah 
+
+===>PERTEMUAN KE 24
+bagian eloquent atau sistem databaenya ada mass assigment adalah cara lebih praktis memasukan data
+jadi pada penulisan di controllernya jadi beda
+
+===>PERTEMUAN KE 27
+command membuat controller dengan simple dan lengkap langsung dengan fungsi bawaanya
+php artisan make:controller PhotoController --resource
+
+
+===>PERTEMUAN KE 28
+menggunakan method chunk untk membagi2 data atau lebih tepatnya memecah arrya, chunk adalah 
+sebuah method untuk membagi bagi data yang teringerasi dengan bootstrap, jika chunk di loopingnya 3
+ maka pada paginate di controllernya harus kelipaatan dari 3, misalnya jadi 6 jadi tampilnya bagus
+
+===>PERTEMUAN KE 29
+migration hampir sama seperti vsc dimana yg berbeda disini adalah log dari data basenya dengan 
+migration kita dapat membuat database dengan command langsung
+php artisan make:migration create_users_table
+
+jika ingin dengan langsung dengan table
+php artisan make:migration create_users_table --create=users
+(buat tabel users dengan nama plural users)
+
+command diatas hanya untuk membuat table pada migrasinya saja dan belum di add ke database
+untuk execute nya kita gunakan php artisan migrate
+
+
+===>PERTEMUAN KE 31 
+custom errors 404 pada resource buat folder errors lalu didalamnya bikin sebuah nama filenya
+misal 404.blade.php 
+
+
+====>PERTEMUAN KE 32
+gunakan php artisan migrate:rollback  untuk menarik kembali semua migrasi yang telah dilakukan
+rollback ini menghapus semua table dan data pada tabel dan menarik semua tabel yang dimigrasi
+jika ingin datanya tidak hilang maka export terlebih dahulu
+
+
+menggunakan softdelete untk menggunakan softdelete kita harus menambah sebuah field deleted_at
+pada table caranya gampang kita hanya perlu menambah nya di migrasi yang telah dibuat dan
+memaki perintah field khusu delete, selain itu kita harus memberitahu model bahwa kita akan
+melakukan softdelete dengan cara user softDeletes pada model
+
+
+===>PERTEMUAN KE 33 
+LOAD CSS DAN JS pada folder public
+cara pemnaggilannya cukup <link href="/css/style.css"> js juga sama
+
+===>PERTEMUAN KE 34
+memberi yield pada gaidan template untuk membei title sesuai halaman dan default title jika
+isi dari yield title kosong
+
+===>PERTEMUAN KE 35
+include footer jika ada halaman yang tidak semua memiliki footer maka bisa di include perhalamannya
+
+===>PERTEMUAN KE 36
+sistem templating blademembuat components agar lebih dinamis dan flexsibel caranya mirip2 seperti 
+framework front-end pada folder resource sebuah folder components karena dari segi name, id, variabel
+semuanya akan sama dalam 1 form input tersebut 
+
+pada bodynya <x-namafilecomponents>
+
+===>PERTEMUAN KE 6
+penambahan field untuk database menggunakan migration
+php artisan make:migrtion add_thumbnail_to_articles
+makan nanti akan ada akan ada file baru di migrationnya yang bernama add_thumbnail_to_articles
+lalu tambahkan saja field barunya disitu
+
+
+tutorial ke 2
+php artisan make:model -mcr untuk membuat controller, model dan migration secara bersamaan
+
+tinker bisa untuk query builder sebelum ke real project, bisa untuk fatching data dll
+misanya casenya adalah table create_users_table
+run dulu:
+php artisan tinker
+factory('App\User', 20)->create() (maka nanti akan memasukan data dummy pada database)
+exit (maka akan langsung keluar dari tinker, user adalah namespace yang ada di model)
+
+untuk membuat sebuah factory
+php artisan make:factory PostFactory (untuk membuat factory biasa)
+
+php artisan help make:factory (untuk help factory)
+php artisan make:factory PostFactory -m Post (untuk menunjukan bahwa factory ini untuk
+model Post)
+
+di tinker kita bisa melakukan segala hal yang dikerjakan oleh model atau tinker juga bisa
+sebagai test sistem
+contoh jika sudah masuk kedalam tinker
+App\Post::first(); (untuk menampilkan data yang pertama)
+App\find(1);
+App\latest->first(); (untuk menampilkan data terakhir)
+
+selain menggunakan function laravel tinker juga bisa menggunakan function atau method yang
+dibuat di model, dengan nama method yang diawali scope, tapi untuk menjalannya lagi di tinker
+tinkernya harus di refresh maka jika
+App\latestFirst(); dijalankan akan menampilkan data terakhir yang dijalankan
+
+App\Post::orderBy('created_at', asc)->get(); (bisa juga menggunakan dsc)
+
+catatan pada factory timestamps yang dibuat adalah sama jadi jika ingin melihat data terbaru
+atau yang terlama maka akan random karena waktunya sama
+
+
+untuk memformat tanggal dan waktu pada saat ditampilkan atau dalam cview
+$p->created_at->format('d m y')
+$p->created_at->format('d M y') bulan 3 hurup FEB
+$p->created_at->format('d F y') bulan Full Febuary
+$p->created_at->diffForHumans() satumenit yang lalu ubah default bhs di app confignya to indonesia
+
+
+@if($post->count())
+@else
+@endif
+
+digunakan untuk menghitung jumlah data yang ada, contohnya jika datanya ada maka apa yg terjadi
+
+@forelse($posts as post)
+@empty
+@forelse
+looping jika data ada
+
+php artisan make:request namaRequest adalah sebuah command untuk membuat sebuah file request2 yang 
+dijalankan untuk validasi form sehigga nanti saat di controller hanya perlu memasukan request pada
+parameter method controller
+jangan lupa use App\Http\Requests\PostRequest(nama requestnya)
+contoh php artisan request PostReqest
+pada auto horize harus di aktif kan atau true
+
+TEST JOIN TABLE ONE TO MANY DI LARAVEL PADA tinker
+buat dulu variable 
+$category = Category::find(1); //perhatikan case sensitive pada penamaan class
+maksud variable diatas adalah untuk menemukan satu category data data table category
+yaitu data pertama, yang dialiaskan pada variabel category
+
+!] Aliasing 'Category' to 'App\Category' for this Tinker session.
+=> App\Category {#4015
+     id: 1,
+     name: "Laravel",
+     slug: "laravel",
+     created_at: null,
+     updated_at: null,
+   }
+
+lalu jika di cek
+$category->posts;  
+akan menampilkan hubungan antara data table category yang diambil dengan table posts
+
+coba sebaliknya dengan mengganti yang di post menjadi belongsTo(Category::class)
+lalu reset tinkernya
+$post = Post::find(6);
+lalu munculkan data yang bersa
+$post->category->name; //diambil dari nama namenya
+
+jika ingin menampilkan datalain
+$post->catgory;
+
+php -S 127.0.0.1:8000 -t public/
+
+===> MEMBUAT RELASI MANY TO MANY
+untuk membuat sebuah relasi many to many kita harus membuat table baru dimana nama table
+ini diambil dari nama table pertama dan ke dua, urutan ini di ambil dari alfabet atau
+cara konvensional laravel
+jadi jika ada table dengan urutan seperti dibawah
+-posts
+-tags
+maka nama tablenya adalah post_tag
+masukan relasi pada migratenya sesuai contoh yang telah dilakukan
+
+cara mengatur relasi pada model membuat sebuah methode dengan plural karena many to many
+
+cek pada tinker
+$post = Post::find(13);
+akan menampilkan data post dengan id 13
+
+cek apakah sudah berelasi
+$post->tags; //tags adalah nama tablenya
+ itu berlaku juga pada table tags
+$tags = Tag::find(1);
+$tags->posts;
+$tags->posts()->count();
+
+jadi jika ingin menampilkan data dari relasi ini kita perlu looping data tersebut di viewnya
+untuk mengirim sata secara multipe menggunakan tag hmtl select kita harus menambah atribute
+multipe pada tag select dan untuk menselsksi datanya tekan ctrl pada saat di formnya, default
+data yang dikirim adalah singel maka ubah terlebih dahulu data tersebut menjadi array dimana
+pada atribute name select pada namanya tambah sebuah array contoh name="tags[]" maka data 
+multipe tadi akan terkirim
