@@ -45,18 +45,25 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('posts', 'PostController@index');
-Route::get('posts/create', 'postController@create');
-Route::post('/posts/store', 'postController@store');
-Route::get('posts/{post:slug}', 'postController@show');
-Route::get('posts/{post:slug}/edit', 'postController@edit');
-Route::patch('/posts/{post:slug}/edit', 'postController@update');
+//route group digunakan untuk meng group route sehingga tidak perlu ladi 
+//memberikan satu2 functionnya seperti function dibawah
+//Route::get('posts', 'PostController@index')->middleware('auth')->name('posts.index');
+
+Route::prefix('posts')->middleware('auth')->group(function () {
+    Route::get('', 'PostController@index')->name('posts.index')->withoutMiddleware('auth');
+    Route::get('create', 'postController@create')->name('posts.create');
+    Route::post('store', 'postController@store');
+    Route::get('{post:slug}/edit', 'postController@edit');
+    Route::patch('{post:slug}/edit', 'postController@update');
+    Route::delete('{post:slug}/delete', 'postController@delete');
+    Route::get('{post:slug}', 'postController@show')->withoutMiddleware('auth');
+});
+
 Route::get('categories/{category:slug}', 'CategoryController@show');
-Route::delete('/posts/{post:slug}/delete', 'postController@delete');
-Route::get('tags/{tag:slug}', 'TagController@show');
 Route::view('/contact', 'contact');
 Route::view('/about', 'about');
 Route::view('/login', 'login');
+Route::get('tags/{tag:slug}', 'TagController@show');
 
 Auth::routes();
 

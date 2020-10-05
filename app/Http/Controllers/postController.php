@@ -8,6 +8,15 @@ use App\Http\Requests\PostRequest;
 
 class postController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware('auth')->except([
+    //         'index', 'show' //yang tidak terproteksi
+    //     ]);
+    // middlewarenya dipindahkan jadi di route
+    // }
+
+
     public function index()
     {
         //Post::get('title', 'slug');

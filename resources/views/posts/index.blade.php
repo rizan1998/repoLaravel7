@@ -24,7 +24,9 @@
             <hr>
         </div>
         <div>
+            @if(Auth::check())
             <a href="/posts/create" class="btn btn-primary"> Add New Post</a>
+            @endif
         </div>
     </div>
     <div class="row">
@@ -38,11 +40,13 @@
                     <div>
                         {{Str::limit($p->body, 50, '.')}}
                     </div>
-                    <a href="/posts/{{$p->slug}}">Read More</a>
+                    <a href="posts/{{$p->slug}}">Read More</a>
                 </div>
                 <div class="card-footer d-flex justify-content-between">
                     Published on {{$p->created_at->diffForHumans()}}
-                    <a href="/posts/{{$p->slug}}/edit" class="btn btn-warning btn-sm">Edit</a>
+                    @Auth
+                    <a href="/posts/{{$p->slug}}/edit" class="btn btn-warning btn-sm"> Edit </a>
+                    @endauth
                 </div>
             </div>
         </div>
