@@ -15,6 +15,8 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id'); //tambahkan ->constrained('users'); jika user dihapus postnya juga dihapus
+            $table->string('thumbnail');
             $table->string('title', 150);
             $table->string('slug', 150);
             $table->text('body');
