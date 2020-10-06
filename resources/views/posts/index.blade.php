@@ -41,6 +41,7 @@
                         {{Str::limit($p->body, 50, '.')}}
                     </div>
                     <a href="posts/{{$p->slug}}">Read More</a>
+                    <p>{{$p->author->name}}</p>
                 </div>
                 <div class="card-footer d-flex justify-content-between">
                     Published on {{$p->created_at->diffForHumans()}}

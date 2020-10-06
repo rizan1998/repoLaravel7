@@ -16,11 +16,13 @@
             </div>
             <hr>
             <p>{{$post->body}}</p>
+            @if(auth()->user()->id == $post->user_id)
             <div class="d-flex justify-content-end">
                 <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
                     delete
                 </button>
             </div>
+            @endif
 
         </div>
 

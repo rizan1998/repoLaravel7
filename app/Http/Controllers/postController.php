@@ -116,7 +116,11 @@ class postController extends Controller
         // ]);
         $attr['slug'] = \Str::slug(request('title'));
         $attr['category_id'] = request('category');
-        $post = Post::create($attr);
+
+        //$attr['user_id'] = auth()->id();
+        //$post = Post::create($attr);
+        //post dengan user_id
+        $post = auth()->user()->posts()->create($attr); //posts diambil dari model
 
         // mengambil relasi di model
         $post->tags()->attach(request('tags')); //dari model relasi
@@ -149,10 +153,15 @@ class postController extends Controller
 
     public function delete(Post $post)
     {
-        $post->tags()->detach(); //untuk menghapus data pada relasi atau pada table post_tag
-        $post->delete();
-        session()->flash('success', 'the post was destroyed');
-        return redirect('posts');
+        if (auth()->user()->is($post->author)) {
+            $post->tags()->detach(); //untuk menghapus data pada relasi atau pada table post_tag
+            $post->delete();
+            session()->flash('success', 'the post was destroyed');
+            return redirect('posts');
+        } else {
+            session()->flash('error', 'user_id not same, you canot delete this post');
+            return redirect('posts.show', []);
+        }
     }
 
     public function RequestValidate()

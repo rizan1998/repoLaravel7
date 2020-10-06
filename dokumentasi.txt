@@ -368,3 +368,13 @@ lalu pada bagian handle kita mengeksekusi apa yang ingin dijalankan di command i
 mengubah login email jadi username
 jika ingin mengubah username ubahlah pada controller nya dan jangan ubah pada folder auth atau vendor laravelnya karena
 itu bisa menyebabkan error saat laravelnya diuprage jadi sebaiknya jika ingin mengubahnya ubahlah di folder controller
+
+
+membuat autorisasi untuk membuat postsnya memiliki sebuah keteriangan siapa yang membuatnya
+relasi kan table user dan table posts
+buat function di model user yaitu method posts (plural)
+dan buat juga function di model post bernama user() jika tida bernama maka tambahkan keterangan berhubungan dengan field
+yang mana
+
+jika sudah masukan user_id pada controller dengan mengambil nama syp yang sedang login dengan method auth()->id();
+jangan lupa fillable nya ditambah di modelnya

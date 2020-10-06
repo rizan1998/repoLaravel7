@@ -12,7 +12,7 @@ class Post extends Model
         return $this->latest()->first();
     }
 
-    //protected $fillable = ['title', 'slug', 'body', 'category_id'];
+    //protected $fillable = ['title', 'slug', 'body', 'category_id', 'user_id'];
     protected $guarded = ['id']; //digunakan jika itu hanya form sendiri
 
     public function category() //singular
@@ -25,5 +25,11 @@ class Post extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    //untuk relasi dengan table user
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
