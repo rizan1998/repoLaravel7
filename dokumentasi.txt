@@ -362,3 +362,9 @@ custum command sesuai yang dibikin tadi
 pada sat mausk ke file cutom command yg pertama kali dilihat adalah signature misal signaturenya diganti dengan
 refresh:database, refresh akan menjadi keywordnya dan database akan menjadi actionnya save lihat di php artisan
 lalu isi command sesuai dengan fungsi command tersebut
+lalu pada bagian handle kita mengeksekusi apa yang ingin dijalankan di command ini 
+
+
+mengubah login email jadi username
+jika ingin mengubah username ubahlah pada controller nya dan jangan ubah pada folder auth atau vendor laravelnya karena
+itu bisa menyebabkan error saat laravelnya diuprage jadi sebaiknya jika ingin mengubahnya ubahlah di folder controller
