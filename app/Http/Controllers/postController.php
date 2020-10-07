@@ -143,12 +143,13 @@ class postController extends Controller
 
     public function update(PostRequest $request, Post $post)
     {
+        $this->authorize('update', $post); //untuk mencegah user mengedit yang bukan miliknya
         $attr = $request->all();
         $attr['category_id'] = request('category');
         $post->update($attr);
         $post->tags()->sync(request('tags')); //untuk mengupdate data tags yang baru
-        //return redirect('posts');
-        return back();
+        return redirect('posts');
+        //return back();
     }
 
     public function delete(Post $post)

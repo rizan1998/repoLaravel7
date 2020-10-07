@@ -45,9 +45,14 @@
                 </div>
                 <div class="card-footer d-flex justify-content-between">
                     Published on {{$p->created_at->diffForHumans()}}
-                    @Auth
+                    <!-- @if(auth()->user()->id == $p->user_id)
                     <a href="/posts/{{$p->slug}}/edit" class="btn btn-warning btn-sm"> Edit </a>
-                    @endauth
+                    @endif -->
+                    <!-- @can('update', $post) -->
+                    <!-- $post adalah parameter untuk masuk ke policynya-->
+
+                    <!-- @endcan -->
+                    <a href="/posts/{{$p->slug}}/edit" class="btn btn-warning btn-sm"> Edit </a>
                 </div>
             </div>
         </div>

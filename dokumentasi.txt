@@ -378,3 +378,13 @@ yang mana
 
 jika sudah masukan user_id pada controller dengan mengambil nama syp yang sedang login dengan method auth()->id();
 jangan lupa fillable nya ditambah di modelnya
+
+membuat policy untuk proteksi CRUD
+php artisan make:policy namapolicy -m "namamodel"
+contoh
+php artisan make:policy PostPolicy -m "Post" (post adalah nama modelnya)
+setelah itu akan dibuatkan sebuah file policy pada folder app policies, command diatas jika ingin otomasi terintegrasi
+dengan modal 
+php artisan make:policy PostPolicy (jika manual atau tidak dibuatkan auto functionya)
+policy yang dibuat ini adalah untuk method update jadi jika dilihat pada file PostPolicynya ada method index lalu masukan
+syntax yang diperlukan lalu atur pada providers/authservicepolicy, lalu tambahkan policy kedalam viewnya

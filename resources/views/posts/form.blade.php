@@ -9,13 +9,13 @@
 </div>
 <div class="form-group">
     <label for="category">category</label>
-    <select type="text" value="" class="form-control" id="category" name="category">
+    <select type="text" class="form-control" id="category" name="category">
         <option value="0" selected disabled>Choose one category</option>
         @foreach($categories as $category)
         @if (old('category')==$category->id)
         <option value="{{$category->id}}" selected>{{ $category->name }}</option>
         @elseif($category->id == $post->category_id)
-        <option value="{{$category->category_id}}" selected>{{ $category->name }}</option>
+        <option value="{{$category->id}}" selected>{{ $category->name }}</option>
         @else
         <option value="{{$category->id}}">{{$category->name}}</option>
         @endif
