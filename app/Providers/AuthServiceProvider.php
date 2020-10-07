@@ -26,6 +26,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        //gate
+        Gate::before(function ($user) {
+            return $user->isAdmin() ? true : null; //jagan pake false
+        });
     }
 }

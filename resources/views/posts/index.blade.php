@@ -48,11 +48,11 @@
                     <!-- @if(auth()->user()->id == $p->user_id)
                     <a href="/posts/{{$p->slug}}/edit" class="btn btn-warning btn-sm"> Edit </a>
                     @endif -->
-                    <!-- @can('update', $post) -->
+                    @can('update', $post)
                     <!-- $post adalah parameter untuk masuk ke policynya-->
-
-                    <!-- @endcan -->
                     <a href="/posts/{{$p->slug}}/edit" class="btn btn-warning btn-sm"> Edit </a>
+                    @endcan
+
                 </div>
             </div>
         </div>

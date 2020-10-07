@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(post::class); //post nama class
     }
+
+    public function isAdmin()
+    {
+        return $this->username == 'rizan1998'; //untuk permission admin sederhana
+    }
 }
