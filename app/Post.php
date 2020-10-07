@@ -32,4 +32,10 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    //function untuk mengambil image
+    public function takeImage()
+    {
+        return "storage/" . $this->thumbnail;
+    }
 }

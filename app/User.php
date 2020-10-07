@@ -44,6 +44,6 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->username == 'rizan1998'; //untuk permission admin sederhana
+        return $this->username == "rizan1998" ? true : null; //untuk permission admin sederhana
     }
 }

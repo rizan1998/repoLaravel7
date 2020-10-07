@@ -387,4 +387,21 @@ setelah itu akan dibuatkan sebuah file policy pada folder app policies, command 
 dengan modal 
 php artisan make:policy PostPolicy (jika manual atau tidak dibuatkan auto functionya)
 policy yang dibuat ini adalah untuk method update jadi jika dilihat pada file PostPolicynya ada method index lalu masukan
-syntax yang diperlukan lalu atur pada providers/authservicepolicy, lalu tambahkan policy kedalam viewnya
+syntax yang diperlukan lalu atur pada providers/authservicepolicy, lalu tambahkan policy kedalam viewnya untuk hidden tombolnya
+
+policy ini juga bisa digunakan untuk proteksi updatenya di contoller, misal di controller update
+
+
+membuat permission untuk admin sederhana atau role admin, membuat pertama buat method pada model user, jika sudah maka pergi
+lagi ke authServiceProvider lalu ada yang namanya method boot 
+
+
+
+==> upload file pada laravel
+pada laravel 7 untuk mengupload sebuah file kita harus mengatur konfigurasi untuk menggunakan file driver yang tersedia dilaravel
+caranya pergi ke directory config, lalu ada namanya file sistem, disana ada beberapa option untuk upload file, copy salah satu
+dirver ke folder env, contoh 
+FILESYSTEM_DRIVER=public, pilih sesuai kebutuhan ada local,public,s3 dll
+tapi file ini tidak bisa image ini tidak bisa langsung dipanggil karena dia ada difolder storage dan bukan asset untuk menghubungkan
+folder storage dan asset/public bisa menggunakan 
+php artisan storage:link (simbolik link)

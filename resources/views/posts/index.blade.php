@@ -36,6 +36,8 @@
                 <div class="card-header">
                     {{Str::limit($p->title, 20, '.')}}
                 </div>
+                <!-- asset('storage/' . $p->thumbnail) -->
+                <img class="card-img-top" style="height:270px; object-fit: cover; object-position:center;" src="{{asset($p->takeImage())}}" alt="">
                 <div class="card-body">
                     <div>
                         {{Str::limit($p->body, 50, '.')}}
@@ -45,9 +47,7 @@
                 </div>
                 <div class="card-footer d-flex justify-content-between">
                     Published on {{$p->created_at->diffForHumans()}}
-                    <!-- @if(auth()->user()->id == $p->user_id)
-                    <a href="/posts/{{$p->slug}}/edit" class="btn btn-warning btn-sm"> Edit </a>
-                    @endif -->
+
                     @can('update', $post)
                     <!-- $post adalah parameter untuk masuk ke policynya-->
                     <a href="/posts/{{$p->slug}}/edit" class="btn btn-warning btn-sm"> Edit </a>

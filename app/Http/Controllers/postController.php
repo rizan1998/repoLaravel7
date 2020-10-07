@@ -19,6 +19,7 @@ class postController extends Controller
 
     public function index()
     {
+
         //Post::get('title', 'slug');
         //Post::take(2)->get(); jika data yang diambil hanya 2
         //$post = Post::get();
@@ -63,6 +64,11 @@ class postController extends Controller
     public function store(PostRequest $request) //request disini adalah  class
     //yang di aliaskan ke requrest Var
     {
+        //dd(request()->file('thumbnail'));
+        $request->validate([
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,svg|max:2048'
+        ]);
+
         //dd(request('tags'));
         //validation
         // $this->validate($request, [
@@ -95,8 +101,6 @@ class postController extends Controller
         // Post::create($post);
 
 
-
-
         //super simple siytax with validation
         // $attr  = $request->validate([
         //     'title' => 'required',
@@ -104,6 +108,8 @@ class postController extends Controller
         // ]);
         // $this->RequestValidate();
         $attr = $request->all();
+        $thumbnail = request()->file('thumbnail');
+
         //$attr['slug'] = \Str::slug($request->title);
         //$attr['category_id'] = request('category');
         //$post = Post::create($attr);
@@ -114,19 +120,24 @@ class postController extends Controller
         //     'title' => 'required',
         //     'body' => 'required'
         // ]);
-        $attr['slug'] = \Str::slug(request('title'));
+        $slug = \Str::slug(request('title'));
+        $attr['slug'] = $slug;
+        //$thumbnailUrl = $thumbnail->store("images/posts");
+        if (request()->file('thumbnail')) {
+            $thumbnail->storeAs("images/posts", "{$slug}.{$thumbnail->extension()}");
+        } else {
+            $thumbnail = null;
+        }
         $attr['category_id'] = request('category');
+        $attr['thumbnail'] = $thumbnail;
 
         //$attr['user_id'] = auth()->id();
         //$post = Post::create($attr);
         //post dengan user_id
         $post = auth()->user()->posts()->create($attr); //posts diambil dari model
-
         // mengambil relasi di model
         $post->tags()->attach(request('tags')); //dari model relasi
-
         session()->flash('success', 'new post is added');
-
         return redirect('/posts');
         //return back(); //redirect /post/create
     }
@@ -143,9 +154,22 @@ class postController extends Controller
 
     public function update(PostRequest $request, Post $post)
     {
+        $request->validate([
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,svg|max:2048'
+        ]);
+        //$thumbnail = request()->file('thumbnail');
+        $slug = request('slug');
         $this->authorize('update', $post); //untuk mencegah user mengedit yang bukan miliknya
+        if (request()->file('thumbnail')) {
+            \Storage::delete($post->thumbnail);
+            $thumbnail->request()->file('thumbnail')->store('images/posts', "{$slug}");
+            //$thumbnail->storeAs("images/posts", "{$slug}.{$thumbnail->extension()}");
+        } else {
+            $thumbnail = $post->thumbnail;
+        }
         $attr = $request->all();
         $attr['category_id'] = request('category');
+        $attr['thumbnail'] = $thumbnail;
         $post->update($attr);
         $post->tags()->sync(request('tags')); //untuk mengupdate data tags yang baru
         return redirect('posts');
@@ -155,6 +179,7 @@ class postController extends Controller
     public function delete(Post $post)
     {
         if (auth()->user()->is($post->author)) {
+            \Storage::delete($post->thumbnail);
             $post->tags()->detach(); //untuk menghapus data pada relasi atau pada table post_tag
             $post->delete();
             session()->flash('success', 'the post was destroyed');
@@ -167,7 +192,6 @@ class postController extends Controller
 
     public function RequestValidate()
     {
-
         return $attr  = request()->validate([
             'title' => 'required',
             'body' => 'required'

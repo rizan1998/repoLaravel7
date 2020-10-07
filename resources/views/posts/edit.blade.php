@@ -8,7 +8,7 @@
         <div class=" mt-3 col-lg-6">
             @include('alert.alert')
             <h3>Edit Post</h3>
-            <form method="post" action="/posts/{{$post->slug}}/edit" autocomplete="off">
+            <form method="post" action="/posts/{{$post->slug}}/edit" autocomplete="off" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 @include('posts.form', ['submit' => 'Update'])

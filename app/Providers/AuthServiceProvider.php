@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -28,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
 
         //gate
         Gate::before(function ($user) {
-            return $user->isAdmin() ? true : null; //jagan pake false
+            return $user->isAdmin(); //jagan pake false
         });
     }
 }

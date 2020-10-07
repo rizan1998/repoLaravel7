@@ -52,4 +52,13 @@
     </div>
     @enderror
 </div>
+<div class="form-group">
+    <label for="thumbnail">thumbnail</label>
+    <input type="file" value="{{old('thumbnail') ?? $post->thumbnail}}" placeholder="Enter the thumbnail of the post" class="form-control" id="thumbnail" name="thumbnail">
+    @error('thumbnail')
+    <div class="mt-2 text-danger">
+        {{$message}}
+    </div>
+    @enderror
+</div>
 <button type="submit" class="btn btn-primary">{{$submit}}</button>
