@@ -40,6 +40,7 @@ use Illuminate\Support\Facades\Auth;
 
 //========>syntax dengan tidak menggunakan class Request
 Route::get('/', 'HomeController@index');
+Route::get('search', 'searchController@post')->name('search.posts');
 
 //route group digunakan untuk meng group route sehingga tidak perlu ladi 
 //memberikan satu2 functionnya seperti function dibawah
