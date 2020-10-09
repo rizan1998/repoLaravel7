@@ -5,7 +5,10 @@
 @section('content')
 <div class="container mt-3">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-8">
+            @if($post->thumbnail)
+            <img class="card-img-top img-thumbnail w-100" style="height:550px; object-fit: cover; object-position:center;" src="{{asset($post->takeImage())}}" alt="">
+            @endif
             <h1>{{$post->title}}</h1>
             <div class="text-secondary">
                 <!-- category->name berasal dari table category -->
@@ -39,8 +42,40 @@
             @endif
 
         </div>
+        <div class="col-lg-4">
+            @foreach($posts as $post)
+            <div class="card mb-2">
+                <div class="card-body">
+                    <div class="text-secondary">
+                        <small>
+                            <a href="/categories/{{$post->category->slug}}"> {{$post->category->name}}</a> &middot;
+                            @foreach($post->tags as $tag)
+                            <a href="/tags/{{$tag->slug}}">{{$tag->name}}</a>
+                            @endforeach
+                        </small>
+                    </div>
+                    <div>
+                        <h5> {{Str::limit($post->title, 20, '.')}}</h5>
+                        {{Str::limit($post->body, 50, '.')}}
+                    </div>
+                    <div class="d-flex justify-content-between align-item-center mb-2">
+                        <div class="media align-items-center">
+                            <img width="20" class="rounded-circle mr-3" src="{{$post->author->gravatar()}}" alt="">
+                            <div class="media-body">
+                                <div>
+                                    {{$post->author->name}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
 
     </div>
+
+</div>
 </div>
 
 @endsection

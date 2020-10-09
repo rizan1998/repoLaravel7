@@ -23,18 +23,21 @@ class postController extends Controller
         //Post::get('title', 'slug');
         //Post::take(2)->get(); jika data yang diambil hanya 2
         //$post = Post::get();
-        $post = Post::latest()->paginate(9); //untuk full pagination
+        $post = Post::with('author', 'tags', 'category')->latest()->paginate(9); //untuk full pagination
         //$post = Post::simplePaginate(2); //simple pagination
-        //return Post::latest()->get();
+        //return Post::with('author', 'tag', 'category')->latest()->get();
         return view('posts.index', compact('post'));
     }
 
-    public function show($post)
+    public function show(Post $post)
     {
         // tanda \DB untuk kembali ke atas
         // $post = \DB::table('posts')->where('slug', $slug)->first(); //dengan memakai basic
         //dd($post);
-        $post = Post::where('slug', $post)->firstOrFail(); //tambah \App untk menggunakan
+
+        // untuk mengambil data yang mirip
+        $posts = Post::where('category_id', $post->category_id)->latest()->limit(6)->get();
+        //$post = Post::where('slug', $post)->firstOrFail(); //tambah \App untk menggunakan
         //class modelnya first untuk menampilkan satu data, firstOrFail jika datanya ada tampilkan
         //jika tidak ada maka auto redirect ke 404
         //cara2 pengecekan
@@ -49,7 +52,7 @@ class postController extends Controller
         // }
 
 
-        return view('posts.show', compact('post'));
+        return view('posts.show', compact('post', 'posts'));
     }
     public function create()
     {

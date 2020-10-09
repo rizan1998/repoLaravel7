@@ -2,19 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
+
+use App\Http\Requests\PostRequest;
+
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -23,6 +18,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $post = Post::with('author', 'tags', 'category')->latest()->limit(6)->get();
+        return view('myhome', compact('post'));
     }
 }

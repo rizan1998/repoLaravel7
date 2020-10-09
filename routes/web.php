@@ -39,12 +39,7 @@ use Illuminate\Support\Facades\Auth;
 // });
 
 //========>syntax dengan tidak menggunakan class Request
-Route::get('/', function () {
-    //return request()->path() == "home" ? true : false;
-    //lebih simple atau lebih short
-    //return request()->is('home') ? 'sama' : 'tidak';
-    return view('home');
-});
+Route::get('/', 'HomeController@index');
 
 //route group digunakan untuk meng group route sehingga tidak perlu ladi 
 //memberikan satu2 functionnya seperti function dibawah
