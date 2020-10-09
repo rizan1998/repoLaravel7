@@ -5,7 +5,7 @@
 @section('content')
 <div class="container mt-3">
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
             <h1>{{$post->title}}</h1>
             <div class="text-secondary">
                 <!-- category->name berasal dari table category -->
@@ -14,13 +14,27 @@
                 <a href="/tags/{{$tag->slug}}">{{$tag->name}}</a>
                 @endforeach
             </div>
+            <div class="media">
+                <img width="60" class="rounded-circle mr-3" src="{{$post->author->gravatar()}}" alt="">
+                <div class="media-body">
+                    <div>
+                        {{$post->author->name}}
+                    </div>
+                    {{'@'. $post->author->email}}
+                </div>
+            </div>
             <hr>
-            <p>{{$post->body}}</p>
+            <p>{!! nl2br($post->body) !!}</p>
             @if(auth()->user()->id == $post->user_id)
             <div class="d-flex justify-content-end">
                 <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
                     delete
                 </button>
+                @can('update', $post)
+                <!-- $post adalah parameter untuk masuk ke policynya-->
+                <a href="/posts/{{$post->slug}}/edit" class="btn ml-2 btn-warning btn-sm"> Edit </a>
+                @endcan
+
             </div>
             @endif
 

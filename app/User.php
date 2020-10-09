@@ -46,4 +46,10 @@ class User extends Authenticatable
     {
         return $this->username == "rizan1998" ? true : null; //untuk permission admin sederhana
     }
+
+    //gravatar
+    public function gravatar($size = 150)
+    {
+        return "https://www.gravatar.com/avatar/" . md5(strtolower(trim($this->email))) . "?d=mp&s=" . $size;
+    }
 }

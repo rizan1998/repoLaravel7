@@ -23,9 +23,9 @@ class postController extends Controller
         //Post::get('title', 'slug');
         //Post::take(2)->get(); jika data yang diambil hanya 2
         //$post = Post::get();
-        $post = Post::paginate(9); //untuk full pagination
+        $post = Post::latest()->paginate(9); //untuk full pagination
         //$post = Post::simplePaginate(2); //simple pagination
-
+        //return Post::latest()->get();
         return view('posts.index', compact('post'));
     }
 
@@ -157,13 +157,10 @@ class postController extends Controller
         $request->validate([
             'thumbnail' => 'image|mimes:jpeg,png,jpg,svg|max:2048'
         ]);
-        //$thumbnail = request()->file('thumbnail');
-        $slug = request('slug');
         $this->authorize('update', $post); //untuk mencegah user mengedit yang bukan miliknya
         if (request()->file('thumbnail')) {
             \Storage::delete($post->thumbnail);
-            $thumbnail->request()->file('thumbnail')->store('images/posts', "{$slug}");
-            //$thumbnail->storeAs("images/posts", "{$slug}.{$thumbnail->extension()}");
+            $thumbnail = request()->file('thumbnail')->store('images/posts');
         } else {
             $thumbnail = $post->thumbnail;
         }

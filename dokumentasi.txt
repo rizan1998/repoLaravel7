@@ -255,18 +255,18 @@ $post->category->name; //diambil dari nama namenya
 jika ingin menampilkan datalain
 $post->catgory;
 
-php -S 127.0.0.1:8000 -t public/
+
 
 ===> MEMBUAT RELASI MANY TO MANY
 untuk membuat sebuah relasi many to many kita harus membuat table baru dimana nama table
-ini diambil dari nama table pertama dan ke dua, urutan ini di ambil dari alfabet atau
+ini diambil dari nama table pertama dan ke dua, urutan ini di ambil dari alfabet ataueb
 cara konvensional laravel
 jadi jika ada table dengan urutan seperti dibawah
 -posts
 -tags
 maka nama tablenya adalah post_tag
 masukan relasi pada migratenya sesuai contoh yang telah dilakukan
-
+php -S 127.0.0.1:8000 -t public/
 cara mengatur relasi pada model membuat sebuah methode dengan plural karena many to many
 
 cek pada tinker
@@ -405,3 +405,7 @@ FILESYSTEM_DRIVER=public, pilih sesuai kebutuhan ada local,public,s3 dll
 tapi file ini tidak bisa image ini tidak bisa langsung dipanggil karena dia ada difolder storage dan bukan asset untuk menghubungkan
 folder storage dan asset/public bisa menggunakan 
 php artisan storage:link (simbolik link)
+
+
+
+cari gravatar sebuah source untuk mengambil foto dari email masukan gravatar di model lalu panggil pada view 

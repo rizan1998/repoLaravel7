@@ -57,7 +57,7 @@ Route::prefix('posts')->middleware('auth')->group(function () {
     Route::get('{post:slug}/edit', 'postController@edit');
     Route::patch('{post:slug}/edit', 'postController@update');
     Route::delete('{post:slug}/delete', 'postController@delete');
-    Route::get('{post:slug}', 'postController@show')->withoutMiddleware('auth');
+    Route::get('{post:slug}', 'postController@show')->name('posts.show')->withoutMiddleware('auth');
 });
 
 Route::get('categories/{category:slug}', 'CategoryController@show');
